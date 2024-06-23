@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from ...decorators import timer, adminValidator
 from ...handlers import SiteHandler
 from ...database import AdminDatabase, Storage
 from ...resources import get_data_from_string
 from ..base import Base
-from pprint import pprint
 from ...resources import SITE_KEY 
 import json
 
