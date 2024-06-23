@@ -1,11 +1,12 @@
+{% load filters %}
 {% if site_data.settings.title.value == True %}
 <div class="title-con">
-  <a href="/" class="home-link title-link">
+  <a href="{{SITE}}" class="home-link title-link">
     <span class="small-logo-con">
-      <img class="site-logo small-logo" src="{{site_data.values.images.favicon_logo.value}}" alt="AnimeHoshi logo" width="100" />
+      <img class="site-logo small-logo" src="{{site_data.values.images.favicon_logo.value|set_image}}" alt="AnimeHoshi logo" width="100" />
     </span>
     <span class="normal-logo-con">
-      <img class="site-logo normal-logo" src="{{site_data.values.images.site_logo.value}}" alt="AnimeHoshi logo" width="100" />
+      <img class="site-logo normal-logo" src="{{site_data.values.images.site_logo.value|set_image}}" alt="AnimeHoshi logo" width="100" />
     </span>
   </a>
 </div>

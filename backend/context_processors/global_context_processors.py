@@ -1,5 +1,6 @@
 from datetime import datetime
 from functools import lru_cache
+from decouple import config
 
 
 
@@ -105,10 +106,11 @@ def global_static_data(request):
 			},
 		],
 	}
-
+	SITE = config("SITE")
 	data = {
 		"admin_menu_items": admin_menu_items,
 		"auths": auths,
+		"SITE": SITE
 	}
 	return data
 
