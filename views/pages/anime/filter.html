@@ -1,0 +1,76 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+<script defer>
+	const type = "{{type}}"
+</script>
+  {{site_data.scripts.head_scripts.filter_head.value|safe}}
+  <title> {{title}} | {{ site_data.values.inputs.title.value }} | {{ site_data.values.inputs.site_name.value }} </title>
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.filter_head.value|safe}}
+{% endblock %}
+
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="filter-con">
+			{% if not page == "search" %}
+			<div class="inner-con">
+      			{% if type == "main" %}
+	      			{% for key, values in tioanime_queries.items %}
+	      				{% include "pages/anime/widgets/filters.html" %}
+					{% endfor %}
+				{% else %}
+	      			{% for key, values in latanime_queries.items %}
+	      				{% include "pages/anime/widgets/filters.html" %}
+					{% endfor %}
+				{% endif %}
+				<div class="switch-apply-con">
+					<button class="apply-btn">Apply</button>
+					<a href='/{% if type == "main" %}latino{% else %}main{% endif %}/filter/' class="filter-swap-link">{% if type == "main" %}latino{% else %}main{% endif %}</a>
+				</div>
+
+			</div>
+			{% endif %}
+		</div>
+		<div class="outter-animes-con">
+           {% with label="Animes" animes=data.animes %}
+           		{% include "pages/anime/widgets/animes_wrapper.html" %}
+           {% endwith %}
+		</div>
+		<div class="pagination-con">
+			<ul>
+				{% with pages=data.pages%}
+					{% if pages > 1 %}
+						{% for page in pages|pagi %}
+				          <li class="
+				          {% if '1' == forloop.counter|slugify %}first-pages-ticks{% endif %}
+				          {% if pages|slugify == forloop.counter|slugify %}last-pages-ticks{% endif %}
+				          {% if current_page == forloop.counter|slugify %}hl-ele{% endif %} 
+				          pages-ticks">
+				            <a href="/{{type}}/filter?page={{page}}{{query}}" 
+				               class="pagination-btn page-btn">
+				              {{ page }} 
+				            </a>
+				          </li>
+				        {% endfor %}
+						{% if pages > 6 %}
+				          <li class="pages-ticks">
+				            <i class="fas fa-ellipsis-h"></i>
+				          </li>
+					      <li class="pages-ticks last-pages-ticks">
+					        <a href="/{{type}}/filter?page={{pages}}{{query}}" 
+					           class="pagination-btn page-btn">
+					          {{ pages }}
+					        </a>
+					      </li>
+						{% endif %}
+					{% endif %}
+				{% endwith %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

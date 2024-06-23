@@ -1,0 +1,290 @@
+:root {
+  --primary-font: "Dosis", sans-serif;
+  --label-font:'Bebas Neue', sans-serif;
+  --primary-color: #fff;
+  --secondary-color: #000;
+  --third-color: #7f009c;
+  --accent-color: #575652;
+  --bg-grad: linear-gradient(45deg, rgba(164,72,185,1) 39%, rgba(230,205,235,1) 100%);
+}
+
+body {
+  margin: 0;
+}
+
+input, input::placeholder {
+  font-size: 15px;
+  font-family: var(--primary-font);
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+
+
+.page-content {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--primary-font);
+  background-color: var(--primary-color);
+  color: #000;
+  position: relative;
+}
+
+.page-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000030;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.alert-box {
+    display: none;
+    position: absolute;
+    background: var(--primary-color);
+    padding: 10px 5px;
+    top: 50px;
+    right: 43%;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: .25rem;
+    box-shadow: 0 0 20px #00000050;
+    color: var(--third-color);
+    z-index: 5;
+    text-transform: capitalize;
+}
+.spinner {
+    border-color: var(--primary-color) !important;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  min-height: 451px;
+}
+
+.inner-con {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.inner-con.inner-main-content {
+    padding: 0;
+}
+
+.outer-form-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.admin-login-bg-con {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-login-bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url(/static/images/gifs/admin-login-background.gif);
+    background-position: center;
+    background-size: cover;
+    filter: blur(3px);
+}
+
+.form-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: var(--bg-grad);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    border-radius: .5rem;
+    box-shadow: 0 0 20px #00000050;
+    max-width: 460px;
+}
+
+.normal-logo-con {
+  display: none;
+}
+
+.top-form-waves > svg.waves {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.waves_animate {
+    top: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    height: 100%;
+    width: 280px;
+}
+
+.bottom-form-waves.waves_animate {
+    bottom: 0;
+    left: 0;
+}
+
+.waves-con {
+    display: flex;
+    max-height: 115px;
+}
+
+.top-waves-con.waves-con {
+    justify-content: end;
+}
+
+.bottom-waves-con.waves-con {
+    justify-content: start;
+}
+.site-logo-text-con {
+    position: relative;
+    z-index: 1;
+}
+
+.inner-form-con {position: relative;z-index: 1;}
+
+
+/*
+.site-logo.small-logo {
+  width: 55px;
+}*/
+
+main.main-content {
+    width: 100%;
+}
+
+.inner-con.inner-main-content {
+    padding: 0;
+}
+
+.bottom-text-con {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    font-family: var(--label-font);
+    margin: 20px 0;
+}
+
+.site-logo-con > .title-con {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-input-con {
+    display: flex;
+    gap: 20px;
+    padding: 0 10px;
+    justify-content: center;
+}
+
+.inner-input-con {
+    width: 100%;
+    position: relative;
+}
+
+label.input-label {
+    top: 15px;
+    left: 5px;
+    position: absolute;
+}
+
+input.icon-input {
+    width: 90%;
+    font-size: 20px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: solid 1px var(--secondary-color);
+}
+
+input.icon-input::placeholder {
+  color: var(--secondary-color);
+  font-family: var(--primary-font);
+}
+
+.icon-con {
+    display: flex;
+    align-items: center;
+}
+
+.admin-login-outer-input-con {
+    margin: 21px 0;
+}
+
+button.submit-btn {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    background: var(--third-color);
+    padding: 5px 10px;
+    border-radius: .25rem;
+    transition: .5s ease-in-out;
+}
+
+button.submit-btn:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transition: .5s ease-in-out;
+}
+.submit-btn-con {
+    display: flex;
+    justify-content: center;
+    margin: 27px 0;
+}
+
+
+/* Styles for screens with a width of 480 pixels or larger */
+/*@media screen and (min-width: 480px) {
+}
+*/
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+    .waves_animate {
+        width: 220px;
+    }
+
+    .form-con {
+        height: 90%;
+        border-radius: .3rem;
+    }
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+/*@media screen and (min-width: 1024px) {
+}
+*/
+/* Styles for screens with a width of 1200 pixels or larger */
+/*@media screen and (min-width: 1200px) {
+}
+*/

@@ -1,0 +1,12 @@
+from decouple import config
+
+ROOT_FILE = "index.html"
+
+REDIS_URL = config("REDIS_URL")
+SITE_KEY = config("SITE_KEY")
+IMAGEKIT_ID = config("IMAGEKIT_ID")
+IMAGEKIT_PUBLIC_KEY = config("IMAGEKIT_PUBLIC_KEY")
+IMAGEKIT_PRIVATE_KEY = config("IMAGEKIT_PRIVATE_KEY")
+IMAGEKIT_URL_ENDPOINT = config("IMAGEKIT_URL_ENDPOINT")
+
+

@@ -1,0 +1,44 @@
+  {% if page != "alert" and site_data.settings.dev_tools_detection.value %}
+  <script>
+    // Function to check if DevTools are open
+    function isDevToolsOpen() {
+      // Check if the window object has the 'Firebug' property
+      if (window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) {
+        return true;
+      }
+
+      // Check if the window object has the 'outerWidth' and 'outerHeight' properties
+      if (window.outerWidth - window.innerWidth > 150 || window.outerHeight - window.innerHeight > 200) {
+        return true;
+      }
+
+      // Check if the window object has the 'opera' property
+      if (window.opera && window.opera.toString() === '[object Opera]') {
+        let operaDevToolsOpened = window.opera.extension.toSource().indexOf('OperaDevTools') > -1;
+        return operaDevToolsOpened;
+      }
+
+      // Check if the window object has the 'chrome' property
+      if (window.chrome && window.chrome.devtools) {
+        return true;
+      }
+
+      // Check if the window object has the 'devtools' property
+      if (window.devtools) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function checkIsDevToolsOpen() {
+      if (!isDevToolsOpen()) return 
+
+      message = encodeURIComponent("Under Construction")
+      description = encodeURIComponent("we are currently doing maintenance to the site")
+      window.location.replace(`/alert?message=${message}&description=${description}`)
+    }
+
+    setInterval(checkIsDevToolsOpen, 1000);
+  </script>
+  {% endif %}

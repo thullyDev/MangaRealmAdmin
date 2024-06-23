@@ -1,0 +1,5 @@
+{% if value %} 
+<div class="ad_wrapper" {% if height and height != "0px" %} style="min-height: {{height}}; width: 100%;" {% else %} style="width: 100%;" {% endif %} >
+	{{value|safe}}
+</div>
+{% endif %} 

@@ -1,0 +1,5 @@
+{% if site_data.settings.loader.value == True %}
+<div style="display: flex; background-color: var(--primary-color);" class="page-loader preloader" data-open="true">
+  {% include "widgets/spinner.html" %}
+</div>
+{% endif %}

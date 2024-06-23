@@ -1,0 +1,10 @@
+{% load filters %}
+
+<div class="field-con inner-con">
+  <div class="field-label-con">
+    <p class="field-label">{{ name|title|replace:"_, " }}</p>
+  </div>
+  <div class="field-text-con">
+    <textarea class="field settings-input" data-name="{{ name }}" data-type="{{type}}" value="{{ value }}"></textarea>
+  </div>
+</div>

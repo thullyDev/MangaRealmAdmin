@@ -1,0 +1,11 @@
+{% load filters %}
+<div class="filters-options">
+	<label for="{{key}}-fliter" class="filters-label">{{key|title|replace:"_, "}}</label>
+	<div class="inner-filters-options">
+		<select id="{{key}}-fliter" name="{{key}}-fliter" data-key="{{key}}" class="filter-select scrollable-ele">
+  			{% for item in values %}
+  				<option value="{{item.value}}">{{item.name}}</option>
+			{% endfor %}
+		</select>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="inner-animes-con">
+	<h3 class="animes-label-con">
+		{% if icon != False  %}<i class="fa-solid fa-star"></i>{% endif %} {{label}}
+	</h3>
+	<div class="animes-con {{type}}-animes-con">
+		<div class="inner-con">
+			<ul>
+				{% for anime in animes %}
+	           		{% with slug=anime.slug title=anime.title poster=anime.image_url %}
+					<li class="anime-con {% if episodes == True %}episode-con{% endif %}" title="{{title}}">
+						<a href="/{{type}}/{% if episodes == True %}watch{% else %}anime{% endif %}{{slug}}" target="_blank" class="anime-link">
+							<div class="inner-anime-con">
+								<div class="anime-poster-con">
+									<img src="{{poster}}" alt="{{title}}" class="anime-poster">
+								</div>
+								<span class="anime-title">{{title|truncatechars:20}}</span>
+							</div>
+						</a>
+						{% if ribbon == True  %}<span class="ribbon">ventilación</span>{% endif %}
+					</li>
+	           		{% endwith %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

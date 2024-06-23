@@ -1,0 +1,88 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+  <title> {{data.title|title}} | {{ site_data.values.inputs.title.value }} </title>
+  {{site_data.scripts.head_scripts.anime_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.anime_head.value|safe}}
+{% endblock %}
+
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="info-con">
+			<div class="left-con">
+				<div class="image-poster-con">
+					<img src="{{data.poster_image}}" alt="{{data.title}}" title="{{data.title}}" class="poster">
+				</div>
+				<div class="action-buttons-con">
+					<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
+					<button class="watch2gather-btn" data-slug="{{anime_slug}}" title="watch together"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+				</div>
+			</div>
+			<div class="right-con">
+				<div class="details-info-con">
+					<div class="details-con">
+						<h3 class="title">{{data.title}}</h3>
+						{% if data.synonyms != "" %}
+							<h4 class="synonyms">{{data.synonyms}}</h4>
+						{% endif %}
+						<div class="description-con">
+							<p class="description">{{data.description|truncatechars:250}}<span class="more-des-btn">more</span></p> 
+						</div>
+						<div class="modal-description-con" data-open="false" style="display: none;">
+							<span class="close-btn"><i class="fa-solid fa-x"></i></span>
+							<p class="description">{{data.description}}</p>
+						</div>
+					</div>
+					<div class="info-con">
+						{% if type == "main" %}
+						<div class="ticks-con">
+							<div class="tick type-tick">
+								Type: <span class="inner-tick">{{data.type}}</span>
+							</div>
+							<div class="tick year-tick">
+								Year: <span class="inner-tick">{{data.year}}</span>
+							</div>
+							<div class="tick season-tick">
+								Season: <span class="inner-tick">{{data.season}}</span>
+							</div>
+							<div class="tick status-tick">
+								Status: <span class="inner-tick">{{data.status}}</span>
+							</div>
+							<div class="tick status-tick">
+								Genres: 
+								{% for value in data.genres %}
+									<span class="inner-tick"> 
+										<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
+									</span>
+								{% endfor %}
+							</div>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="desktop-episodes-con">
+					{% with anime_title=data.title episodes=data.episodes %}
+						{% include "pages/anime/widgets/episodes_wrapper.html" %}
+					{% endwith %}
+				</div>
+			</div>
+		</div>
+		<div class="mobile-episodes-con">
+			{% with anime_title=data.title episodes=data.episodes %}
+				{% include "pages/anime/widgets/episodes_wrapper.html" %}
+			{% endwith %}
+		</div>
+
+
+		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
+    	{% include "pages/anime/widgets/comment_section.html" %}
+    {% endwith %}
+
+    {% include "pages/anime/widgets/make_watch_room.html" %}
+	</div>
+{% endblock %}

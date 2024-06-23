@@ -1,0 +1,13 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<img src="{% if page == 'maintenance' %}{{site_data.values.images.maintenance.value}}{% else %}{{site_data.values.images.alert.value}}{% endif %}" alt="alert image" class="alert-image">
+		<h1>{{message}}</h1>
+    	<p>{{description}}</p>
+	</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+<script defer type="text/javascript">
+	let username = "{{user_data.username}}"
+</script>
+  {{site_data.scripts.head_scripts.profile_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.head_scripts.profile_head.value|safe}}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="profile-con">
+			{% if site_data.settings.proifile_image.value == True %}
+			<div class="profile-image-con">
+				<label for="profile-image-inp" class="profile-image">
+					{% if user_data.profile_image %} 
+						<img src="{{user_data.profile_image}}" alt="{{user_data.username}}" class="profile-image">
+   					{% else %}
+						<i class="fas fa-user-circle"></i>
+   					{% endif %}
+				</label>
+				<input type="file" id="profile-image-inp" style="display: none;">
+			</div>
+   		{% endif %}
+			<div class="user-details-con">
+				<div class="username-input-con">
+					<input type="text" placeholder="{{user_data.username}}" class="username-inp">
+					<button class="username-inp">
+						<i class="fa fa-pencil"></i>
+					</button>
+				</div>
+				<div class="logout-btn-con">
+					<button class="logout-btn">logout</button>
+				</div>
+			</div>
+		</div>
+		<div class="list-con">
+			<div class="list-label-search-con">
+				<div class="list-label-con">
+					<p class="list-label">My list</p>
+				</div>
+				<div class="list-search-con"><input type="text" placeholder="search..." class="list-search-inp"></div>
+			</div>
+			<div class="animes-con">
+				<ul class="list-animes-list">
+					{% for anime in user_list %}
+						{% with watch_type=anime.watch_type slug=anime.slug image_url=anime.anime_image title=anime.anime_title %}
+						<li class="anime-con" title="{{title}}" data-id="{{slug}}">
+							<a href="/{{watch_type}}/anime{{slug}}" target="_blank" class="anime-link">
+								<div class="inner-anime-con">
+									<div class="anime-poster-con">
+										<img src="{{image_url}}" alt="{{title}}" class="anime-poster">
+									</div>
+									<span class="anime-title">{{title|truncatechars:20}}</span>
+								</div>
+							</a>
+							<button class="delete-btn" data-slug="{{slug}}" data-title="{{title}}" >
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+						</li>
+						{% endwith %}
+					{% endfor %}
+				</ul>
+		<div class="pagination-con">
+			<ul>
+				{% with pages=user_list_pages page=user_list_page query=user_list_keywords%}
+					{% if pages > 1 %}
+						{% for page in pages|pagi %}
+				          <li class="
+				          {% if '1' == forloop.counter|slugify %}first-pages-ticks{% endif %}
+				          {% if pages|slugify == forloop.counter|slugify %}last-pages-ticks{% endif %}
+				          {% if current_page == forloop.counter|slugify %}hl-ele{% endif %} 
+				          pages-ticks">
+				            <a href="?page={{page}}&keywords={{query}}" 
+				               class="pagination-btn page-btn">
+				              {{ page }} 
+				            </a>
+				          </li>
+				        {% endfor %}
+						{% if pages > 6 %}
+				          <li class="pages-ticks">
+				            <i class="fas fa-ellipsis-h"></i>
+				          </li>
+					      <li class="pages-ticks last-pages-ticks">
+					        <a href="?page={{page}}&keywords={{query}}" 
+					           class="pagination-btn page-btn">
+					          {{ pages }}
+					        </a>
+					      </li>
+						{% endif %}
+					{% endif %}
+				{% endwith %}
+			</ul>
+		</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% load filters %}
+
+<div class="outter-table-con">
+  <div class="table-label">
+    <h3 class="label">Latest {{ label|title }}</h3>
+  </div>
+  <table class="table-con">
+    <thead>
+      <tr>
+        {% for item in table_heads %}
+          <th class="table-head {{ item|replace:' ,-' }}-head">{{ item }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in table_items %}
+        {% if widget == "animes" %}
+          <tr class="table-row">
+            <td class="table-item">
+              <p class="profile-image-tick">
+                <a href="/anime{{ item.slug }}" target="_blank" class="watch-link slug">
+                  <img src="{{ item.image_url }}" alt="{{ item.title }}" title="{{ item.title }}" class="poster-image" />
+                </a>
+              </p>
+            </td>
+            <td class="table-item">
+              <p class="title-tick" title="{{ item.title }}">{{ item.title|truncatechars:30 }}</p>
+            </td>
+            <td class="table-item">
+              <p class="{% if not item.disabled %}status-tick active{% else %}status-tick remove{% endif %}" data-id="{{ item.slug }}">
+                {% if item.slug not in disabled_animes %}active{% else %}inactive{% endif %}
+              </p>
+            </td>
+            <td class="table-item">
+              <button class="table-btn disable" data-id="{{ item.slug }}" data-content="{{ widget }}" data-deleted="{{ item.disabled }}" data-key="{{ forloop.counter0 }}">
+                {% if item.slug not in disabled_animes %}disable{% else %}add{% endif %}
+              </button>
+            </td>
+          </tr>
+        {% else %}
+          <tr class="table-row" data-key="{{ forloop.counter0 }}">
+            <td class="table-item">
+                {% if item.profile_image %}
+                    <p class="profile-image-tick">
+                        <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
+                    </p>
+                {% else %}
+                    <i class="fas fa-user profile-image-tick" title="{{ item.username }}"></i>
+                {% endif %}
+            </td>
+            <td class="table-item">
+              <p class="username-tick|truncatechars:30">{{ item.username }}</p>
+            </td>
+            <td class="table-item Email-tick-item">
+              <p class="email-tick">{{ item.email }}</p>
+            </td>
+            <td class="table-item">
+              <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}" data-id="{{ item.email }}">
+                {% if not item.deleted %}active{% else %}inactive{% endif %}
+              </p>
+            </td>
+            <td class="table-item">
+              <button class="table-btn disable" data-deleted="{{ item.deleted }}" data-id="{{ item.email }}" data-content="{{ widget }}"  data-key="{{ forloop.counter0 }}">
+                {% if item.deleted %}add{% else %}delete{% endif %}
+              </button>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="table-search-con">
+    <div class="inner-table-search-con">
+      <div class="table-search-input-con">
+        <input type="text" class="table-search" data-type="{{content}}">
+        <button class="table-search-btn" data-type="{{content}}">search</button>
+      </div>
+    </div>
+  </div>
+  <div class="tabel-pagination">
+    <ul>
+      {% if pages > 6 %}
+        {% for i in 5|times %}
+          <li class="pages-ticks">
+            <a href="{{query_url}}" 
+               data-page="{{ i }}" 
+               class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
+              {{ i }}
+            </a>
+          </li>
+        {% endfor %}
+          <li class="pages-ticks">
+            <i class="fas fa-ellipsis-h"></i>
+          </li>
+      {% else %}
+        {% for i in pages|times %}
+          <li class="pages-ticks">
+            <a href="{{query_url}}" 
+               data-page="{{ i }}" 
+               class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
+              {{ i }}
+            </a>
+          </li>
+        {% endfor %}
+      {% endif %}
+      {% if pages > 1 %}
+      <li class="pages-ticks">
+        <a href="{{query_url}}" 
+           data-page="{{ pages }}" 
+           class="hl-ele pagination-btn page-btn">
+          {{ pages }}
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+</div>
+</div>

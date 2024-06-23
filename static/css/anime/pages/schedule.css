@@ -1,0 +1,141 @@
+.sched-toggle-con {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+a.sched-toggle {
+    padding: 5px 10px;
+    background: var(--secondary-highlight-color);
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: small;
+    transition: background .5s ease-in-out;
+}
+
+a.sched-toggle:first-child {
+    background: var(--highlight-color);
+    border-radius: .35rem 0 0 .35rem;
+}
+
+a.sched-toggle:last-child {
+    border-radius: 0 .35rem .35rem 0;
+}
+
+a.sched-toggle:hover {
+    background: var(--secondary-accent-color);
+    transition: background .5s ease-in-out;
+}
+
+.schedule-viewer-con {
+    display: none;
+}
+
+.schedule-viewer-con.mobile-schedule-viewer-con {
+    display: flex;
+}
+
+.schedule-viewer-con ul {display: flex;align-items: center;flex-direction: column;list-style: none;padding: 0;margin: 0;gap: 15px;}
+
+.day-label-con {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: var(--highlight-color);
+    border-radius: .25rem;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.day-con {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.days-animes-grid-con {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+img.anime-poster {
+    width: 100px;
+    border-radius: .25rem;
+}
+
+.inner-anime-con {
+    display: flex;
+    gap: 5px;
+}
+
+li.anime-con {
+    width: 100%;
+}
+
+span.anime-title {font-size: 13px;}
+
+.day-animes-con.mobile-day-animes-con {
+    display: none;
+}
+
+/*
+@media screen and (min-width: 480px) {
+}*/
+
+/*@media screen and (min-width: 600px) {
+}
+*/
+
+/*@media screen and (min-width: 768px) {
+}
+*/
+
+
+@media screen and (min-width: 901px) {
+    .day-label-con {
+        width: 97%;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    .schedule-viewer-con.mobile-schedule-viewer-con {
+        display: none;
+    }
+
+    .schedule-viewer-con.desktop-schedule-viewer-con {
+        display: block;
+    }
+
+    .days-grid-con {
+        display: flex;
+        background: var(--highlight-color);
+        margin-bottom: 10px;
+        border-radius: .2rem;
+    }
+
+    .days-grid-item.grid-item {
+        width: 100%;
+        padding: 10px;
+    }
+
+
+    .desktop-schedule-viewer-con.schedule-viewer-con  .days-animes-grid-con {
+        flex-direction: row;
+    }
+
+    .desktop-schedule-viewer-con.schedule-viewer-con  li.anime-con .inner-anime-con {
+        flex-direction: column;
+    }
+
+    .desktop-schedule-viewer-con.schedule-viewer-con .days-animes-grid-con .day-animes-con {width: 100%;}
+}
+
+
+/*
+@media screen and (min-width: 1200px) {
+}
+
+*/

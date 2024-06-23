@@ -1,0 +1,53 @@
+{% extends "bases/admin.html" %}
+
+{% block head_content %}{% endblock %}
+
+{% block login_main_content %}
+  <div class="inner-con inner-main-content">
+    <div class="outer-form-con">
+      <div class="admin-login-bg-con">
+        <img src="{{ site_data.values.images.admin_background.value }}" class="admin-login-bg"></img>
+      </div>
+      <div class="form-con">
+        <div class="top-waves-con waves-con">  
+          {% with class="top-form-waves" %}
+            {% include "widgets/waves.html" %}
+          {% endwith %}
+        </div>
+        <div class="site-logo-text-con">
+          <div class="site-logo-con">
+            {% include "widgets/title.html" %}
+          </div>
+          <div class="bottom-text-con">
+            Admin Panel
+          </div>
+        </div>
+        <div class="inner-form-con">
+          <form action="post">
+            <div class="admin-inputs-con">
+              {% with type="text" placeholder="Email" key="email" icon="fas fa-envelope" %}
+                <div class="admin-login-outer-input-con">
+                  {% include "widgets/icon_input.html" %}
+                </div>
+              {% endwith %}
+
+              {% with type="password" placeholder="Password" key="password"  icon="fas fa-key" %}
+                <div class="admin-login-outer-input-con">
+                  {% include "widgets/icon_input.html" %}
+                </div>
+              {% endwith %}
+            </div>
+            <div class="submit-btn-con">
+              <button class="submit-btn" type="button">Login</button>
+            </div>
+          </form>
+        </div>
+        <div class="bottom-waves-con waves-con">          
+          {% with class="bottom-form-waves" %}
+            {% include "widgets/waves.html" %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<div class="episodes-con">
+	<h4 class="episodes-label">{{anime_title}} episodes</h4>
+	<div class="inner-episodes-con">
+		<ul class="scrollable-ele">
+			{% if type == "main" %}
+				{% for value in episodes %}
+					{% with slug=value.slug %}
+						<li class="episode-item">
+							<a href="{% if is_watch_room == True %}/watch_room/{{room_id}}/?ep_num={{forloop.counter}}{% else %}/{{type}}/watch{{slug}}{% endif %}" class="episode-link">Episodio {{forloop.counter}}</a>
+						</li>
+					{% endwith %}
+				{% endfor %}
+			{% else %}
+				{% for value in episodes %}
+					{% with slug=value %}
+						<li class="episode-item">
+							<a href="{% if is_watch_room == True %}/watch_room/{{room_id}}/?ep_num={{forloop.counter}}{% else %}/{{type}}/watch{{slug}}{% endif %}" class="episode-link">Episodio {{forloop.counter}}</a>
+						</li>
+					{% endwith %}
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div>
+</div>

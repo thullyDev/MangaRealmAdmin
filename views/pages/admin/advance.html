@@ -1,0 +1,26 @@
+{% extends "bases/admin.html" %}
+{% load filters %}
+
+{% block head_content %}{% endblock %}
+
+{% block main_content %}
+  <form method="post">
+    <div class="inner-con inner-main-content">
+      <div class="inputs-con">
+        {% for key, item in settings.items %}
+          <div class="input-con">
+            <div class="setting-label-con">
+              <p class="setting-label">{{ item.name|replace:"_, " }}</p>
+            </div>
+            {% with class="settings-input" name=item.name value=item.value %}
+              {% include 'widgets/checkbox2.html' %}
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+      {% include 'pages/admin/widgets/save_btn.html' %}
+    </div>
+  </form>
+{% endblock %}
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="shortcut icon" href="/static/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+   {% if page != "login" %} 
+   <link href="/static/css/admin/admin.css" rel="stylesheet" />
+   {% endif %}
+  <link href="/static/css/global.css" rel="stylesheet" />
+  <link href="/static/css/admin/pages/{{page}}.css" rel="stylesheet" />
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"
+    defer
+    ></script>
+  <script>
+    const csrfToken = "{{csrf_token}}"
+  </script>
+  <script defer type="text/javascript" src="/static/js/resources/urlUtils.js"></script>
+  <script defer type="text/javascript" src="/static/js/global.js"></script>
+  <script defer type="text/javascript" src="/static/js/admin/admin.js"></script>
+  <script defer type="text/javascript" src="/static/js/admin/pages/{{page}}.js"></script>
+  <title> {{ page|title }} | Admin Panel </title>
+  {% block head_content %}
+  {% endblock %}
+</head> 
+<body>
+	  <div class="page-content">
+        {% if page == "login" %}
+          <main class="main-content">
+            <div class="core-content">
+              {% block login_main_content %}
+              {% endblock %}
+            </div>
+          </main>
+        {% else %}
+          <div class="side-bar-con">
+            {% include "sections/admin/menu.html" %}
+          </div>
+          <div class="right-con">
+            {% include "sections/admin/header.html" %}
+            <main class="main-content">
+              <h2 class="page-label">{{ page|title }}</h2>
+              <div class="core-content">
+                {% block main_content %}
+                {% endblock %}
+              </div>
+            </main>
+          </div>
+          {% include "sections/admin/footer.html" %}
+        {% endif %}
+
+        <div style="display: none;" class="page-loader">
+          {% include "widgets/spinner.html" %}
+        </div>
+        <div class="outer-alert-box">
+          <div class="alert-box">
+          </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% load filters %}
+{% if site_data.settings.authentication.value == True %}
+<div class="auth-con" data-open="false">
+  <div class="inner-auth-con">
+    <span class="close-btn"><i class="fa-solid fa-x"></i></span>
+    <div class="auth-bg-img-con">
+      <img src="{{ site_data.values.images.authentication_background.value }}" alt="authentican background image" class="auth-bg-img">
+    </div>
+    <div class="forms-con">
+      {% for auth, items in auths.items %}
+      <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{auth}}">
+          <form action="post">
+              <div class="auth-inputs-con">
+                <div class="auth-text">
+                  {{auth|replace:"_, "|title}}
+                </div> 
+                <div class="auth-sub-text">
+                  {% if auth == "login" %}
+                    Welcome back!
+                  {% elif auth == "signup" %}
+                    Create an account to use and get all your features.
+                  {% elif auth == "forgot_password" %}
+                    We will send an email to your box, just follow that link to set your new password.
+                  {% elif auth == "resend" %}
+                    Input your email.
+                  {% elif auth == "verify" %}
+                    Input the code sent the email.
+                  {% elif auth == "renew_password" %}
+                    Renew you password please, your old password can be used.
+                  {% endif %}
+                </div> 
+                {% for value in items %}
+                  {% with type=value.input placeholder=value.key|title value="" key=value.key icon=value.icon %}
+                    <div class="auth-outer-input-con" {% if type == "hidden" %}style='display: none;'{% endif %}>
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+                {% endfor %}
+                {% with id=auth %}
+                  {% include "pages/anime/widgets/captcha.html" %}
+                {% endwith %}
+                <div class="submit-btn-con">
+                  <button id="auth_id_{{auth}}"  class="submit-btn" type="submit" data-type="{{auth}}">submit</button>
+                  {% if auth == "login" or auth == "signup" %}
+                    <p class="signup-login-text">
+                      I {% if auth == "login" %}dont {% endif %}have an account <span class="auth-link" data-type="{{auth}}">{% if auth == "login" %}signup{% else %}login{% endif %}</span>
+                    </p> 
+                  {% endif %}
+                </div>
+                {% if auth == "login" %}
+                <div class="forgot-btn-con">
+                  <button class="forgot-btn" type="button" data-type="{{auth}}">forgot password</buttonk>
+                </div>
+                {% endif %}
+              </div>
+          </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

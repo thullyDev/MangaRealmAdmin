@@ -1,0 +1,4 @@
+{% load filters %}
+{% with table_heads="['Poster', 'Title', 'Status', '']"|safe_list table_items=items widget="animes" %}
+  {% include 'pages/admin/widgets/analytics_table.html' %}
+{% endwith %}

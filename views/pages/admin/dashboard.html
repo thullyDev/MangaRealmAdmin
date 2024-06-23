@@ -1,0 +1,20 @@
+{% extends "bases/admin.html" %}
+
+{% block head_content %}{% endblock %}
+
+{% block main_content %}
+  <div class="inner-con inner-main-content">
+    <div class="cards-con">
+      {% for item in analytics %}
+        {% with icon=item.icon label=item.label numbers=item.numbers %}
+          {% include 'pages/admin/widgets/analytics_card.html' %}
+        {% endwith %}
+      {% endfor %}
+    </div>
+    <div class="tables-con">
+      {% with query_url=latanimes_pages.query_url content="latanimes" items=latanimes pages=latanimes_pages.pages page=latanimes_pages.page label="latanimes animes" %}
+        {% include 'pages/admin/widgets/analytics_animes_table.html' %}
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}

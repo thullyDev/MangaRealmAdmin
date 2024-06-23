@@ -1,0 +1,124 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+<script defer>
+	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
+</script>
+  {{site_data.scripts.head_scripts.watch_together_browsing_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.watch_together_browsing_head.value|safe}}
+{% endblock %}
+
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<h2 class="browse-label">Browse</h2>
+		<div class="outer-watch-rooms-con">
+			<div class="watch-room-search-my-rooms-link-con">
+				<div class="outer-watch-room-search-con">
+					<div class="inner-watch-room-search-con">
+						<i class="fas fa-search"></i>
+						<input placeholder="room search..." type="text" class="watch-room-search">
+					</div>
+					<a href="/watch_rooms?mine=true" class="my-rooms-link"> 
+						your rooms
+					</a>
+				</div>
+			</div>
+			<div class="inner-watch-rooms-com">
+				<ul class="watch-rooms-list">
+					{% for room in rooms %}
+						{% with creator_profile=room.creator_profile creator_username=room.creator_username room_name=room.room_name room_id=room.room_id anime_title=room.anime_title anime_image=room.anime_image watch_type=room.watch_type private=room.private unlimited=room.unlimited limit=room.limit created_at=room.created_at  %}
+						<li class="room-item">
+							<div class="inner-room-item">
+								<span class="room-name">{{room_name}}</span>
+								<div class="room-details-con">
+									<div class="thumbnail-con">
+										<a href="/watch_rooms/{{room_id}}" title="Watch {{anime_title|title}} together" class="{% if private %}private-link {% endif %}room-thumbnail">
+											<div class="inner-thumbnail-con">
+												<span class="room-thumbnail-info-con">
+													<div class="left-side-con">
+														<img src="{{anime_image}}" alt="{{anime_title}}" class="room-thumbnail-img">
+													</div>
+													<div class="right-side-con">
+														<!-- <div class="room-tick room-tick-anime-title">{{anime_title}}</div> -->
+														<div class="room-tick room-tick-type">{% if watch_type == "main" %} Subbed {% else %} Latino {% endif %}</div>
+													</div>
+												</span>
+												<span class="background-images-con">
+													<img src="{{anime_image}}" alt="{{anime_title}}" class="room-thumbnail-blur">
+													<span class="bg-backdrop"></span>
+												</span>
+											</div>
+										</a>
+									</div>
+									<div class="room-info">
+										<div class="owner">
+											<div class="user">
+												<div class="user-avatar">
+												      {% if creator_profile %}
+														<img class="user-avatar-img" src="{{creator_profile}}">
+												      {% else %}
+												        <i class="fa fa-user"></i>
+												      {% endif %}
+												</div>
+											</div>
+											<div class="user-created">
+												<div class="anime-name">{{anime_title|title}}</div>
+												<div class="uc-info">
+													<strong>{{creator_username}}</strong>
+													<span class="dot"></span>
+													<span class="time" data-room-id="{{room_id}}" data-created-at="{{created_at}}">{{created_at}}</span>
+												</div>
+												<div class="rm-info">
+													<span class="room-tick room-tick-viewer" data-room-id="{{room_id}}" ></span>
+													<span class="dot"></span>
+													<div class="room-tick">{% if private %}private{% else %}public{% endif %}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						{% endwith %}
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="pagination-con">
+				<ul>
+					{% with pages=pagination.pages page=pagination.page %}
+						{% if pages > 1 %}
+							{% for page in pages|pagi %}
+					          <li class="
+					          {% if '1' == forloop.counter|slugify %}first-pages-ticks{% endif %}
+					          {% if pages|slugify == forloop.counter|slugify %}last-pages-ticks{% endif %}
+					          {% if current_page == forloop.counter|slugify %}hl-ele{% endif %} 
+					          pages-ticks">
+					            <a href="/{{type}}/filter?page={{page}}{{query}}" 
+					               class="pagination-btn page-btn">
+					              {{ page }} 
+					            </a>
+					          </li>
+					        {% endfor %}
+							{% if pages > 6 %}
+					          <li class="pages-ticks">
+					            <i class="fas fa-ellipsis-h"></i>
+					          </li>
+						      <li class="pages-ticks last-pages-ticks">
+						        <a href="/{{type}}/filter?page={{pages}}{{query}}" 
+						           class="pagination-btn page-btn">
+						          {{ pages }}
+						        </a>
+						      </li>
+							{% endif %}
+						{% endif %}
+					{% endwith %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

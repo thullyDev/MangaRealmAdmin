@@ -1,0 +1,105 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% if is_watch_room == True %}
+<script defer>
+	const roomId = "{{room_id}}"
+	let roomCode = '{% if room_data.private == False or room_data.creator_email == COOKIES.email %}{{room_code}}{% endif %}'
+    function getRoomCode() {
+    	return roomCode
+    }
+    function codeModalOpen() {
+    	return $(".code-modal-con").css('display') != 'none'
+    }
+</script>
+  <title> You're watching {{data.episode_title}} | {{ site_data.values.inputs.title.value }} </title>
+{% endif %}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.watch_head.value|safe}}
+{% endblock %}
+
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<!-- <h2 class="title">{{data.episode_title}}</h2> -->
+		<div class="episodes-player-chat-con">
+			<div class="outer-episodes-con scrollable-ele">
+				<div class="desktop-episodes-con">
+					{% include "pages/anime/widgets/episodes_wrapper.html" %}
+				</div>
+			</div>
+			<div class="outer-player-con">			
+				<div class="player-con">
+					<div class="inner-con iframe-con">
+						<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"  allow="fullscreen"></iframe>
+					</div>
+				</div>
+				<div class="action-player-buttons-con">
+						<div class="player-links-con">
+							<a href="/{{type}}/watch{{prev_episode_slug}}" class="prev-link player-links" title="previous">
+								<i class="fa fa-arrow-left"></i>
+							</a>
+							<a href="/{{type}}/watch{{next_episode_slug}}" class="next-link player-links" title="next">
+								<i class="fa fa-arrow-right"></i>
+							</a>
+						</div>
+						{% if is_watch_room == True and room_data.private == True and room_data.creator_email == COOKIES.email %}
+						<div class="code-show-con">
+							<div class="inner-code-show-con">
+								<i class="fas fa-key"></i><input type="text" value="{{room_code}}" class="code-inp" readonly>
+							</div>
+						</div>
+						{% endif %}
+						<div class="action-buttons-con">
+							<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list" {% if is_watch_room == True %}style="background: var(--highlight-color); !important"{% endif %}><i class="fa fa-plus"></i></button>
+							{% if is_watch_room == True %}
+								<button class="close-open-chat-btn" title="close or open chat" style="background: var(--secondary-highlight-color);"><i class="fa-solid fa-comment"></i></button>
+							{% endif %}
+							<button class="watch2gather-btn" data-slug="{{anime_slug}}" title="watch together"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+						</div>
+				</div>
+				<div class="servers-links-con">
+					<div class="servers-embed-label">
+						<div class="servers-label">
+							<p class="watching-text">You are watching</p>
+							<span class="episode-alert-box">Episode {{episode_num}}</span>
+							<p class="caution-text">If current server doesn't work please try other servers beside.</p>
+						</div>
+						<div class="server-links-con">
+							{% for server in data.embed_links %}
+								{% with link=server.link name=server.name %}
+									{% include "pages/anime/widgets/server_wrapper.html" %}
+								{% endwith %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+	    {% with height=site_data.scripts.ads_scripts.under_player_advertisement.height value=site_data.scripts.ads_scripts.under_player_advertisement.value %}
+	      {% include "widgets/ad_wrapper.html" %}
+	    {% endwith %}
+
+			{% if is_watch_room == True %}
+			<div class="chat-frame-con" data-open="false" style="display: none;">
+				<button class="close-open-chat-btn" title="close or open chat"><i class="fa-solid fa-comment"></i></button>
+				<div class="inner-chat-frame-con">
+					<iframe src="/chat_room/{{room_id}}/" frameborder="0" class="chat-frame"></iframe>
+				</div>
+			</div>
+		    {% endif %}
+		</div>
+		<div class="mobile-episodes-con">
+			{% include "pages/anime/widgets/episodes_wrapper.html" %}
+		</div>
+				{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
+        	{% include "pages/anime/widgets/comment_section.html" %}
+        {% endwith %}
+        {% include "pages/anime/widgets/make_watch_room.html" %}
+        {% if is_watch_room == True %}
+        	{% include "pages/anime/widgets/code_modal.html" %}
+		{% endif %}
+	</div>
+{% endblock %}

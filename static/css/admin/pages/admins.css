@@ -1,0 +1,182 @@
+.admins-count-add-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admins-count-con {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+span.admin-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.add-admin-btn-con {
+    display: flex;
+    gap: 15px;
+}
+
+button.add-admin {
+    background: var(--third-color);
+    padding: 10px;
+    color: var(--primary-color);
+    font-family: var(--primary-font);
+    border-radius: .25rem;
+}
+
+img.profile-image {
+    width: 50px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+button.table-btn.disable {
+    background-color: var(--third-color);
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: var(--primary-color);
+    border-radius: .25rem;
+    width: 50px;
+}
+
+
+.outter-modal-con {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-con {
+    max-width: 400px;
+    border: solid 1px var(--third-color);
+    padding: 15px 0;
+    border-radius: .5rem;
+    width: 100%;
+}
+
+.modal-con p.text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.sitekey-input-content {
+    display: flex;
+}
+
+.sitekey-input-content {
+    display: flex;
+    justify-content: center;
+}
+
+input.sitekey-input {
+    outline: none;
+    height: 20px;
+    border: solid 1px var(--accent-color);
+    border-radius: .25rem;
+}
+
+button.sitekey-submit-btn {
+    display: none;
+    background: var(--third-color);
+    border-radius: 0 .25rem .25rem 0;
+    height: 100%;
+    color: var(--primary-color);
+}
+
+
+.outter-add-admin-modal-con {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background: #00000066;
+    backdrop-filter: blur(.75px);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.outter-add-admin-modal-con > .inner-con {
+    background: var(--primary-color);
+    padding: 20px;
+    border-radius: .5rem;
+    box-shadow: 0 0 20px #00000050;
+    width: 100%;
+    max-width: 460px;
+}
+
+.icon-input-con {
+    display: flex;
+    justify-content: space-around;
+}
+
+input.icon-input {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    border: solid 1px var(--third-color);
+    border-radius: .35rem;
+    padding: 5px 0 5px 5px;
+}
+
+.inner-input-con {
+    width: 85%;
+}
+
+.icon-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-add-admin-modal-con {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.close-btn-con {
+    display: flex;
+    justify-content: end;
+}
+
+button.close-btn {
+    background: var(--third-color);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+button.close-btn > i {font-size: 15px;color: var(--primary-color);}
+
+/* Styles for screens with a width of 480 pixels or larger */
+@media screen and (min-width: 480px) {
+    .Email-tick-item, .Email-head {
+        display: table-cell;
+    }
+}
+
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 1024px) {
+}
+
+/* Styles for screens with a width of 1200 pixels or larger */
+@media screen and (min-width: 1200px) {
+}

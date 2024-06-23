@@ -1,0 +1,79 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+  {{site_data.scripts.head_scripts.schedule_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.schedule_head.value|safe}}
+{% endblock %}
+
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="schedule-con">
+			<h1>{{page}}</h1>
+			<p>Animes semanales, días y horarios aproximados!</p>
+			<div class="sched-toggle-con">
+				<a href="/main/schedule/" class="sched-toggle">main</a>
+				<a href="/latino/schedule/" class="sched-toggle">latino</a>
+			</div>
+		</div>
+		<div class="desktop-schedule-viewer-con schedule-viewer-con">
+			<div class="days-grid-con">
+				{% for day in data.keys %}
+				<div class="days-grid-item grid-item">{{day}}</div>
+				{% endfor %}
+			</div>
+			<div class="days-animes-grid-con">
+				{% for day, animes in data.items %}
+					<div class="day-animes-con">
+						<ul>
+							{% for anime in animes %}
+				           		{% with title=anime.title poster=anime.image_url %}
+								<li class="anime-con" title="{{title}}">
+									<div class="inner-anime-con">
+										<div class="anime-poster-con">
+											<img src="{% if type == 'main' %}http://tioanime.com{% endif %}{{poster}}" alt="{{title}}" class="anime-poster">
+										</div>
+										<span class="anime-title">{{title}}</span>
+									</div>
+								</li>
+				           		{% endwith %}
+							{% endfor %}
+						</ul>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="schedule-viewer-con mobile-schedule-viewer-con">
+			<div class="days-animes-grid-con">
+				{% for day, animes in data.items %}
+					<div class="day-con">
+						<div class="day-label-con" data-day="{{day}}">
+							{{day}} <i class="fas fa-angle-down"></i>
+						</div>
+						<div class="day-animes-con mobile-day-animes-con" data-open="false" data-day="{{day}}" style="display: none;">
+							<ul>
+								{% for anime in animes %}
+					           		{% with title=anime.title poster=anime.image_url %}
+									<li class="anime-con" title="{{title}}">
+										<div class="inner-anime-con">
+											<div class="anime-poster-con">
+												<img src="{% if type == 'main' %}http://tioanime.com{% endif %}{{poster}}" alt="{{title}}" class="anime-poster">
+											</div>
+											<span class="anime-title">{{title}}</span>
+										</div>
+									</li>
+					           		{% endwith %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
