@@ -6,8 +6,6 @@ register = template.Library()
 
 @register.filter(name='anchor_episode')
 def anchor_episode(value, arg):
-    print("value ===> ", value)
-
     return value
 
 @register.filter(name='replace')

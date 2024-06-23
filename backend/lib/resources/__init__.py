@@ -18,6 +18,7 @@ from .configs import (
 	IMAGEKIT_PUBLIC_KEY,
 	IMAGEKIT_PRIVATE_KEY,
 	IMAGEKIT_URL_ENDPOINT,
+	MANGA_API_URL,
 )
 from .misc import (
 	valid_email,

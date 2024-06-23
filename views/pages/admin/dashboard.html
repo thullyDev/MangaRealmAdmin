@@ -12,6 +12,9 @@
       {% endfor %}
     </div>
     <div class="tables-con">
+      {% with query_url=query content="manganato" items=mangas pages=pagination.pages page=pagination.page label="Manganato Mangas" %}
+        {% include 'pages/admin/widgets/analytics_animes_table.html' %}
+      {% endwith %}
     </div>
   </div>
 {% endblock %}

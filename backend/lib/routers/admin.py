@@ -1,12 +1,14 @@
 from rest_framework.views import APIView
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, EmptyPage
+from ..resources import MANGA_API_URL
 from ..decorators import adminValidator, timer
-from ..handlers import ResponseHandler, SiteHandler
+from ..handlers import ResponseHandler, SiteHandler, ApiHandler
 from ..database import AdminDatabase
 # from .base import Base
 from pprint import pprint
 import json
+import requests
 
 admin_database = AdminDatabase()
 site = SiteHandler()
@@ -40,18 +42,24 @@ class Admin(APIView, ResponseHandler):
 
         disabled_animes = site_data["disabled_animes"]
 
-        # self.set_context(context=context, data={
-        #     "analytics": analytics,
-        #     "disabled_animes": disabled_animes,
-        #     "latanimes": latanimes["animes"],
-        #     "latanimes_pages": {
-        #         "page": latanimes["page"],
-        #         "pages": latanimes["pages"],
-        #     },
-        # })
+        data = get_mangas()
+        pagination = data["pagination"]
+        keyword = GET.get("keyword", "")
+        query = ApiHandler().build_url(
+                    base="", 
+                    endpoint="/admin/dashboard/", 
+                    params={ "page": pagination["pages"], "keyword": keyword }
+                    )
+
+        data["pagination"]["pages"] = int(data["pagination"]["pages"])
+        data["pagination"]["page"] = int(data["pagination"]["page"])
+
         self.set_context(context=context, data={
             "analytics": analytics,
             "disabled_animes": disabled_animes,
+            "mangas": data["mangas"],
+            "pagination": pagination,
+            "query": query,
         })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
@@ -162,3 +170,35 @@ class Admin(APIView, ResponseHandler):
 
         return data if valid else None
 
+
+def get_mangas():
+    try:
+        response = requests.get(f"{MANGA_API_URL}/filter")
+        response.raise_for_status() 
+        data = response.json()
+
+        if data["status_code"] != 200:
+            return {
+                "pagination": {
+                    "page": "1",
+                    "pages": "1"
+                },
+                "mangas": []
+            }
+        
+        mangas_response = {
+            "pagination": data["data"]["pagination"],
+            "mangas": data["data"]["mangas"]
+        }
+        
+        return mangas_response
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return {
+            "pagination": {
+                "page": "1",
+                "pages": "1"
+            },
+            "mangas": []
+        }
