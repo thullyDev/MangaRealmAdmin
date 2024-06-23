@@ -1,5 +1,6 @@
+{% load filters %}
     <div class="image-setting-con site-logo-setting-con">
       <div class="image-con">
-        <img src="{{value}}" alt="{{id}}" data-name="{{id}}" class="settings-image" />
+        <img src="{{value|set_image}}" alt="{{id}}" data-name="{{id}}" class="settings-image" />
       </div>
     </div>

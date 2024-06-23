@@ -1,12 +1,14 @@
 from django import template
+from decouple import config
 import ast
-import json
 
 register = template.Library()
+SITE = config("SITE")
 
-@register.filter(name='anchor_episode')
-def anchor_episode(value, arg):
-    return value
+
+@register.filter(name='set_image')
+def set_image(value):
+    return f"{SITE}/{value}"
 
 @register.filter(name='replace')
 def replace(value, arg):
