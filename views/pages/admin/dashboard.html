@@ -12,9 +12,6 @@
       {% endfor %}
     </div>
     <div class="tables-con">
-      {% with query_url=latanimes_pages.query_url content="latanimes" items=latanimes pages=latanimes_pages.pages page=latanimes_pages.page label="latanimes animes" %}
-        {% include 'pages/admin/widgets/analytics_animes_table.html' %}
-      {% endwith %}
     </div>
   </div>
 {% endblock %}
