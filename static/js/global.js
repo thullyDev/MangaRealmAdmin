@@ -1,34 +1,5 @@
 const print = (message) => console.log(message)
 
-// $.fn.slideLeft = function(speed=500, callback=() => {}) {
-//     this.animate({
-//         width: 'toggle',
-//         paddingLeft: 'toggle',
-//         paddingRight: 'toggle',
-//         marginLeft: '500px',
-//         marginRight: '0px'
-//     }, speed, callback);
-
-//     return this;
-// };
-
-
-// $.fn.slideRight = function(speed=500, callback=() => {}) {
-//     this.animate({
-//         width: 'toggle',
-//         paddingLeft: 'toggle',
-//         paddingRight: 'toggle',
-//         marginLeft: '0px',
-//         marginRight: '500px'
-//     }, speed, callback);
-
-//     return this;
-// };
-
-function getRecaptchaResponse(widgetID) {
-    return grecaptcha.getResponse(widgetID)
-}
-
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const outerAlertBox = $(".outer-alert-box");
   const alertBox = $(".alert-box");
@@ -142,35 +113,3 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-function addToList(slug, watchType) {
-    $.ajax({
-      url: "/user/ajax/post/add/list/",
-      type: 'POST',
-      data: {
-          slug: slug,
-          watch_type: watchType,
-          csrfmiddlewaretoken: csrfToken,
-      },
-      beforeSend: function() {
-        showLoader()
-      },
-      success: (response) => {
-          const { message } = response
-          showAlert({ message })
-          closeLoader()
-      },
-      error: (error) => {
-        const { message, status_code } = error.responseJSON
-        showAlert({ message })
-        closeLoader()
-        if(status_code == 403) popAuth()
-      }
-  });
-}
-
-$(".add-to-list-btn").click(function() {
-  const thisEle = $(this)
-  const slug = thisEle.data("slug")
-  const type = thisEle.data("type")
-  addToList(slug, type)
-});
