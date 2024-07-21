@@ -1,7 +1,7 @@
 from decouple import config
 
 ROOT_FILE = "index.html"
-
+SITE = config("SITE")
 REDIS_URL = config("REDIS_URL")
 SITE_KEY = config("SITE_KEY")
 IMAGEKIT_ID = config("IMAGEKIT_ID")

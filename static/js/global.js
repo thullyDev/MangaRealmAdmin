@@ -22,7 +22,7 @@ function removeEle(id) {
     $(`*[data-id="${id}"]`).fadeOut().remove()
 }
 
-function closeLoader({ selector=".progress-loader" } = {}) {
+function closeLoader({ selector=".page-loader" } = {}) {
     const loader = $(selector) 
     loader.fadeOut()
 }

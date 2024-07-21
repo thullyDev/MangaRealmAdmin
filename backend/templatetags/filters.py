@@ -8,7 +8,7 @@ SITE = config("SITE")
 
 @register.filter(name='set_image')
 def set_image(value):
-    return f"{SITE}/{value}"
+    return f"{SITE}/{value}" if "http" not in value else value
 
 @register.filter(name='replace')
 def replace(value, arg):

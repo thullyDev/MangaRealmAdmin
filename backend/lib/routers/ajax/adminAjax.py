@@ -4,8 +4,9 @@ from ...handlers import SiteHandler
 from ...database import AdminDatabase, Storage
 from ...resources import get_data_from_string
 from ..base import Base
-from ...resources import SITE_KEY 
+from ...resources import SITE_KEY, SITE
 import json
+import requests
 
 admin_database = AdminDatabase()
 site = SiteHandler()
@@ -24,11 +25,64 @@ class AdminAjax(Base):
             return self.bad_request_response()
 
         save_data = site_data.get(save, {})
-        if save == "values": self.process_images(data, save_data)
+
         self.update_data(save, data, save_data)
+
+        if save == "values": 
+            self.process_images(data, save_data)
+
+        # print("site_logo2 ====> ", save_data["images"]["site_logo"]["value"])
         self.save_site_data(save_data, save)
+        self.alert_site()
         
         return self.successful_response()
+
+    def update_data(self, save, new_data, old_data):
+        if not old_data:
+            return
+
+        if save == "settings":
+            for key, value in old_data.items():
+                old_data[key]["value"] = new_data[key]
+            return
+
+        for type_key, type_values in old_data.items():
+            for key, value in type_values.items():
+                old_data[type_key][key]["value"] = new_data[key]
+
+
+    def save_site_data(self, data, name):
+        site_data = self.get_site_data()
+        site_data[name] =  data
+        admin_database.hset(name="site_data", data=site_data, expiry=False)
+
+
+    def process_images(self, new_data, old_data):
+        images_keys = list(old_data["images"].keys())
+        images = []
+
+        for key, value in new_data.items():
+            if key not in images_keys or (old_data["images"][key]["value"] == value and len(value) < 1000):
+                continue 
+
+            images.append({
+                "name": key,
+                "value": value.replace("data:image/jpeg;base64,", ""),
+            })
+            
+        if not images:
+            return
+
+        for img in images:
+            name = img.get("name")
+            value = img.get("value")
+            image_url = storage.upload_base64_image(name=name, base64_img=value)
+
+            if image_url: 
+                old_data["images"][name]["value"] = image_url
+
+        print("site_logo ====> ", old_data["images"]["site_logo"]["value"])
+
 
     @adminValidator
     def reset_settings(self, request, POST, *args, **kwargs):
@@ -54,12 +108,15 @@ class AdminAjax(Base):
             return self.forbidden_response(data={ "message": "site key is invalid" })
 
         data = get_data_from_string(POST.get("data"))
-        is_validate = self.validate(
+        is_valid = self.validate(
             username=data["username"],
             email=data["email"],
             password=data["password"],
             confirm=data["confirm"],
             )
+
+        if not is_valid:
+            return self.bad_request_response()
 
         del data["confirm"]
         admin_database.set_admin(email=data["email"], data=data)
@@ -97,7 +154,7 @@ class AdminAjax(Base):
         return self.successful_response(data={ "data": { "deleted": data["deleted"] }})
 
     @adminValidator
-    def update_anime(self, request, site_data, *args, **kwargs):
+    def update_anime(self, request, POST, site_data, *args, **kwargs):
         if not POST:
             return redirect("admin_login")
 
@@ -142,46 +199,12 @@ class AdminAjax(Base):
         res_data = admin_database.update_admin(data=admin_data)
         return self.successful_response(data={ "message": "owner was created" })
 
-    def save_site_data(self, data, name):
-        site_data = self.get_site_data()
-        site_data[name] =  data
-        admin_database.hset(name="site_data", data=site_data, expiry=False)
+    def alert_site(self):
+        requests.get(f"{SITE}/admin_refresh?site_key={SITE_KEY}", timeout=1)
 
-    def update_data(self, save, new_data, old_data):
-        if save == "settings":
-            for key, value in old_data.items():
-                old_data[key]["value"] = new_data[key]
-            return
-
-        for type_key, type_values in old_data.items():
-            for key, value in type_values.items():
-                old_data[type_key][key]["value"] = new_data[key]
-
-    def process_images(self, new_data, old_data):
-        images_keys = list(old_data["images"].keys())
-        images = []
-
-        for key, value in new_data.items():
-            if key not in images_keys or old_data["images"][key]["value"] == value:
-                continue 
-
-            images.append({
-                "name": key,
-                "value": value.replace("data:image/jpeg;base64,", ""),
-            })
-
-        if not images:
-            return
-
-        for img in images:
-            name = img.get("name")
-            value = img.get("value")
-            image_url = storage.upload_base64_image(name=name, base64_img=value)
-
-            if image_url: old_data["images"][name]["value"] = image_url
-
-    def get_site_data(self): 
-        return admin_database.hget("site_data", {})
+    def get_site_data(self):
+        data = admin_database.hget("site_data") 
+        return data if data else {}
 
     def get_save_to_data(self, name):
         site_data = self.get_site_data()
