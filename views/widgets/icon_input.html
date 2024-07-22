@@ -1,0 +1,9 @@
+<div class="icon-input-con">
+    <div class="icon-con">
+        <i class="{{icon}}"></i>
+    </div>
+    <div class="inner-input-con">
+        {% if label %} <label for="" class="input-label">{{label}}</label> {% endif %}
+        <input type="{{type}}" value="{{value}}" name="{{key}}" placeholder="{{placeholder}}" data-key="{{key}}" autocomplete="{{autocomplete}}" class="icon-input">
+    </div>
+</div>

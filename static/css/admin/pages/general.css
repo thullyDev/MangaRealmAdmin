@@ -1,0 +1,112 @@
+label.settings-input-label {
+    cursor: pointer;
+}
+
+.text-inputs-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.socials-settings-con input.settings-input {
+    
+width: 97%;
+}
+
+.socials-settings-con {
+    display: flex;
+    flex-direction: column;
+}
+
+input.settings-input {
+    width: 96%;
+    height: 30px;
+    font-size: 16px;
+    font-family: var(--primary-font);
+    padding: 0;
+    outline: none;
+}
+
+.text-input-con {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+label.label-con {
+    font-size: 15px;
+}
+
+
+.image-con {display: flex;justify-content: center;width: 100%;}
+
+img.settings-image {
+    width: 75%;
+}
+
+.image-setting-con.site-logo-setting-con {
+    width: 100%;
+}
+
+.image-input-con {
+    background: #00000010;
+    width: 43%;
+    padding: 10px;
+    border: solid 1px var(--accent-color);
+    border-radius: .5rem;
+}
+
+.images-settings-con {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-input-con input {
+    display: none;
+}
+
+/* Styles for screens with a width of 480 pixels or larger */
+@media screen and (min-width: 480px) {
+	.socials-settings-con {
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	}
+
+	.socials-settings-con .text-input-con {
+		width: 50%;		
+	}
+}
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+	.image-input-con {
+	    width: 25%;
+	}
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 1024px) {
+	.text-inputs-con {
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	}
+
+	.text-input-con {
+	    width: 50%;
+	}
+
+	.image-input-con {
+	    width: 16%;
+	}
+	
+	.images-settings-con {
+	    justify-content: space-between;
+	}
+}
+
+/* Styles for screens with a width of 1200 pixels or larger */
+/*@media screen and (min-width: 1200px) {
+}
+*/

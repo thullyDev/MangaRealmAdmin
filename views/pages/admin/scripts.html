@@ -1,0 +1,50 @@
+{% extends "bases/admin.html" %}
+{% load filters %}
+
+{% block head_content %}{% endblock %}
+
+{% block main_content %}
+  <form method="post">
+    <div class="inner-con inner-main-content">
+      <div class="scripts-container">
+        <div class="outer-scripts-con">
+          <div class="scripts-label-con">
+            <p class="scripts-label">Head Scripts</p>
+          </div>
+          <div class="scripts-con head-scripts-con">
+            {% for key, item in head_scripts.items %}
+              {% with name=item.name value=item.value %}
+                {% include 'pages/admin/widgets/script_field.html' %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="outer-scripts-con">
+          <div class="scripts-label-con">
+            <p class="scripts-label">Foot Scripts</p>
+          </div>
+          <div class="scripts-con foot-scripts-con">
+            {% for key, item in foot_scripts.items %}
+              {% with name=item.name value=item.value %}
+                {% include 'pages/admin/widgets/script_field.html' %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="outer-scripts-con">
+          <div class="scripts-label-con">
+            <p class="scripts-label">Ads Scripts</p>
+          </div>
+          <div class="scripts-con foot-scripts-con">
+            {% for key, item in ads_scripts.items %}
+              {% with name=item.name value=item.value height=item.height %}
+                {% include 'pages/admin/widgets/ads_script_field.html' %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% include 'pages/admin/widgets/save_btn.html' %}
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load filters %}
+
+<table class="table-con admins-table-con">
+    <thead>
+        <tr>
+            {% for head in "[ 'Profile Image', 'Username', 'Email', 'Status', '' ]"|safe_list %}
+                <th class="table-head {{ head }}-head admins-head">{{ head }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in table_admins %}
+            <tr class="table-row admin-row">
+                <td class="table-item admin-item">
+                    {% if item.profile_image %}
+                        <p class="profile-image-tick">
+                            <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
+                        </p>
+                    {% else %}
+                        <i class="fas fa-user profile-image-tick" title="{{ item.username }}"></i>
+                    {% endif %}
+                </td>
+                <td class="table-item admin-item">
+                    <p class="username-tick">{{ item.username }}</p>
+                </td>
+                <td class="table-item Email-tick-item admin-item">
+                    <p class="email-tick">{{ item.email }}</p>
+                </td>
+                <td class="table-item admin-item">
+                    <p class="status-tick {% if not item.deleted %}active{% else %}remove{% endif %}" data-email="{{ item.email }}">{{ item.deleted|yesno:"inactive,active" }}</p>
+                </td>
+                <td class="table-item anime-item">
+                    <button class="table-btn disable delete-btn" data-email="{{ item.email }}" data-deleted="{{ item.deleted|safebool }}">
+                        {% if not item.deleted %}delete{% else %}add{% endif %}
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

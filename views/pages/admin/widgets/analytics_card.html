@@ -1,0 +1,16 @@
+{% load filters %}
+<div class="analytic-card card {{ label|lower|replace:'_, ' }}">
+  <div class="inner-con">
+    <div class="left-side numbers-text-con">
+      <span class="ticks-icon">
+        <i class="{{icon}}"></i>
+      </span>
+      <span class="ticks-numbers">
+        <p class="numbers">{{ numbers }}</p>
+      </span>
+      <span class="ticks-label">
+        <p class="label">{{ label }}</p>
+      </span>
+    </div>
+  </div>
+</div>

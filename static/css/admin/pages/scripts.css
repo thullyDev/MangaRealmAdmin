@@ -1,0 +1,56 @@
+textarea.field.settings-input {
+  height: 250px;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.ads-script-field-con > .inner-con {
+  padding: 0;
+}
+
+input.fluid-input {
+  width: 100px;
+  border: solid 1px var(--accent-color);
+  font-family: var(--primary-font);
+  outline: none;
+}
+
+input.fluid-input::placeholder {
+  color: var(--secondary-color);
+  font-size: 15px;
+}
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+  .field-con.inner-con {
+    width: 46%;
+  }
+
+  .scripts-con {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .ads-script-field-con {
+    width: 46%;
+    padding: 10px;
+  }
+
+  .ads-script-field-con > .field-con {
+    width: 100%;
+  }
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 1024px) {
+}
+
+/* Styles for screens with a width of 1200 pixels or larger */
+@media screen and (min-width: 1200px) {
+}

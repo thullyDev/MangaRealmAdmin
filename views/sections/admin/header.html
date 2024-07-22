@@ -1,0 +1,25 @@
+<header class="main-header">
+  <div class="header-viewer-con desktop-viewer-con">
+    <div class="menu-btn-con">
+      <button type="button" class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="outter-account-con">
+      <div class="account-profile-image-con">
+        <span role="button" class="account-btn actions-dropdown-btn" title="{{admin.username}}">
+            {{ admin.username|make_list|first|upper }}
+        </span>
+      </div>
+      <div class="actions-dropdown-menu" data-open="true">
+        <ul>
+          <li class="actions-items">
+            <span role="button" class="action-btn logout-btn">
+              LOGOUT
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

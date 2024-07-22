@@ -1,0 +1,47 @@
+label.checkbox-2-label {
+  background: var(--accent-color);
+}
+
+.checkbox-2:checked + label.checkbox-2-label:before {
+  background: var(--accent-color);
+}
+
+.inputs-con {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+/* Styles for screens with a width of 480 pixels or larger */
+@media screen and (min-width: 480px) {
+  .input-con {
+    width: 48%;
+  }
+}
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+  .input-con {
+    width: 32%;
+  }
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 1024px) {
+  .input-con {
+    width: 24%;
+  }
+}
+
+/* Styles for screens with a width of 1200 pixels or larger */
+/* @media screen and (min-width: 1200px) {
+} */

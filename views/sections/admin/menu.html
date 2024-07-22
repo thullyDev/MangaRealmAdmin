@@ -1,0 +1,17 @@
+<div class="outer-menu-con">
+  {% include "widgets/title.html" %}
+  <div class="inner-menu-con">
+    <ul>
+      {% for item in admin_menu_items %}
+        {% with path=item.path icon=item.icon label=item.label %}
+          <li class="menu-item">
+            <a href="{{ path }}" class="menu-link">
+              <i class="{{ icon }}" style="margin: 5px;"></i>
+              <span class="menu-text">{{ label }} </span>
+            </a>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

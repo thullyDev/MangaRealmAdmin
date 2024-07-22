@@ -1,0 +1,5 @@
+{% load filters %}
+
+{% with table_heads="['Profile Image', 'Username', 'Email', 'Status', '']"|safe_list table_items=items widget="users" %}
+  {% include 'pages/admin/widgets/analytics_table.html' %}
+{% endwith %}

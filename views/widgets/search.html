@@ -1,0 +1,21 @@
+<div class="outter-search-con">
+  <div class="search-con">
+    <div class="search-input-con">
+      <button class="search-btn" type="button" data-view="{{view}}">
+        <i class="fas fa-search"></i>
+      </button>
+      <input class="search-input" 
+      placeholder='buscar {% if type == "latino" %}latinos{% endif %}...' 
+      type="search" name="search" data-type="{{type}}" data-view="{{view}}"/>
+    </div>
+    <div class="search-items-con">
+      <div class="search-loader-con">
+        {% include "widgets/loader_two.html" %}
+      </div>
+      <ul class="search-list-con"></ul>
+      <a href="/home" class="search-view-all-con" data-open="false">
+        view all
+      </a>
+    </div>
+  </div>
+</div>

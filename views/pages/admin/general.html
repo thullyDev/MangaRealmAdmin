@@ -1,0 +1,62 @@
+{% extends "bases/admin.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+  <form method="post" enctype="multipart/form-data">
+    <div class="inner-con inner-main-content">
+      <div class="text-inputs-con">
+        {% for key, item in inputs.items %}
+          <div class="text-input-con">
+            <div class="settings-input-label-con">
+              <label for="{{ item.name }}" class="label-con">
+                {{ item.name|replace:"_, " }}
+              </label>
+            </div>
+            {% with value=item.value name=item.name id=item.name type="text" %}
+              <div class="settings-input-con">
+                <input class="settings-input" data-name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="images-settings-con">
+        {% for key, item in images.items %}
+          <div class="image-input-con">
+            <label for="{{ item.name }}" class="settings-input-label">
+              <span class="image-label">{{ item.name|replace:"_, " }}</span>
+              {% with value=item.value id=item.name %}
+                {% include 'pages/admin/widgets/settings_image_container.html' %}
+              {% endwith %}
+            </label>
+            {% with value=item.value name=item.name id=item.name type="file" %}
+              <div class="settings-input-con">
+                <input class="settings-input image-input" data-name="{{name}}" name="{{name}}" data-type="{{type}}" data-value="{{value}}" value id="{{id}}" type="{{type}}" />
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="socials-settings-con">
+        {% for key, item in socials.items %}
+          <div class="text-input-con">
+            <div class="settings-input-label-con">
+              <label for="{{ item.name }}" class="label-con">
+                {{ item.name|replace:"_, " }}
+              </label>
+            </div>
+            {% with value=item.value name=item.name id=item.name type="text" %}
+              <div class="settings-input-con">
+                <input class="settings-input" data-name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+      {% include 'pages/admin/widgets/save_btn.html' %}
+    </div>
+  </form>
+{% endblock %}
