@@ -31,7 +31,6 @@ class AdminAjax(Base):
         if save == "values": 
             self.process_images(data, save_data)
 
-        # print("site_logo2 ====> ", save_data["images"]["site_logo"]["value"])
         self.save_site_data(save_data, save)
         self.alert_site()
         
